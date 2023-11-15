@@ -21,6 +21,7 @@ public class Player {
         System.out.print(name + " , enter your move: ");
         move[0] = sc.nextInt();
         move[1] = sc.nextInt();
+
         return move;
     }
 
