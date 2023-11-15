@@ -3,33 +3,35 @@ package com.company;
 public class Board {
     private char[][] grid;
 
-
-    public Board(){
-        grid = new char[3][3];
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
+    public Board(int size){
+        grid = new char[size][size];
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
                 grid[i][j] = ' ';
             }
         }
     }
 
     public void printBoard(){
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
+        for(int i=0;i< grid.length;i++){
+            for(int j=0;j<grid.length;j++){
                 System.out.print(grid[i][j]);
-                if(j<2){
+                if(j< grid.length-1){
                     System.out.print(" | ");
                 }
             }
             System.out.println();
-            if(i<2){
-                System.out.println("-----------");
+            if(i<grid.length-1){
+                for(int k=0;k<grid.length*4;k++) {
+                    System.out.print("-");
+                }
+                System.out.println();
             }
         }
     }
     public boolean isFull(){
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid.length;j++){
                 if(grid[i][j] == ' '){
                     return false;
                 }
@@ -47,13 +49,29 @@ public class Board {
         }
     }
     public boolean checkWin(char mark){
-        for(int i = 0;i < 3;i++){
-            if(grid[i][0] == mark && grid[i][1] == mark && grid[i][2] == mark) return true;
-            if(grid[0][i] == mark && grid[1][i] == mark && grid[2][i] == mark) return true;
+        for (int i = 0; i < grid.length; i++) {
+            if(checkline(grid[i],mark)) return true;
+            char[] arrcol = new char[grid.length];
+            for (int j = 0; j < grid.length; j++) {
+                arrcol[j] = grid[j][i];
+            }
+            if(checkline(arrcol,mark))return true;
         }
-        if(grid[0][0] == mark && grid[1][1] == mark && grid[2][2] == mark)return true;
-        if(grid[2][0] == mark && grid[1][1] == mark && grid[0][2] == mark)return true;
-        return false;
+        char[] diagonal1 = new char[grid.length];
+        char[] diagonal2 = new char[grid.length];
+        for (int i = 0; i < grid.length; i++) {
+            diagonal1[i] = grid[i][i];
+            diagonal2[i] = grid[grid.length-1-i][i];
+        }
+        return(checkline(diagonal1,mark) || checkline(diagonal2,mark));
+
+    }
+
+    public boolean checkline(char[] line,char mark){
+        for(int i = 0;i < line.length;i++){
+            if(line[i] != mark)return false;
+        }
+        return true;
     }
 
     public boolean isValid(int row, int col){

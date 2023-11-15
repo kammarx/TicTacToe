@@ -5,8 +5,8 @@ public class Game {
     private Player player1;
     private Player player2;
 
-    public Game(String player1, String player2){
-        board = new Board();
+    public Game(String player1, String player2, int boardSize){
+        board = new Board(boardSize);
         this.player1 = new Player(player1,'X');
         this.player2 = new Player(player2,'O');
     }
