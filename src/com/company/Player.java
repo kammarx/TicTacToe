@@ -14,6 +14,9 @@ public class Player {
     public char getMark(){
         return mark;
     }
+    public String getName(){
+        return name;
+    }
 
     public int[] makeMove(){
         Scanner sc = new Scanner(System.in);

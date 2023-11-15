@@ -1,7 +1,8 @@
 package com.company;
 
 public class Board {
-    public char[][] grid;
+    private char[][] grid;
+
 
     public Board(){
         grid = new char[3][3];
@@ -37,7 +38,7 @@ public class Board {
         return true;
     }
     public boolean placeMark(int row,int col, char mark ){
-        if(grid[row][col] == ' '){
+        if( isValid(row, col) && grid[row][col] == ' '){
             grid[row][col] = mark;
             return true;
         }
@@ -53,6 +54,10 @@ public class Board {
         if(grid[0][0] == mark && grid[1][1] == mark && grid[2][2] == mark)return true;
         if(grid[2][0] == mark && grid[1][1] == mark && grid[0][2] == mark)return true;
         return false;
+    }
+
+    public boolean isValid(int row, int col){
+        return (row >=0 && col >=0 && row<grid.length && col< grid.length);
     }
 
 }
